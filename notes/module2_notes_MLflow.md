@@ -1,6 +1,7 @@
 # In Python 
 MLflow Python documentation, [here](https://www.mlflow.org/docs/latest/python_api/index.html).
 
+## Logging Experiments
 ```
 import mlflow
 ```
@@ -24,7 +25,20 @@ with mlflow.start_run() as run:
 	
 mlflow.stop_run() ##av.note: not necessary if using `with mlflow.start_run() as run:`
 ```
-For more information on logging functions, see Mlflow docs [here](https://www.mlflow.org/docs/latest/tracking.html#logging-functions).
+
+For more information on logging functions, see MLflow docs [here](https://www.mlflow.org/docs/latest/tracking.html#logging-functions).
+
+## Reading information/results of experiments
+
+```
+client = mlflow.tracking.MlflowClient(tracking_uri = 'db_type:///db_path')
+experiment = client.get_experiment_by_name('experiment_name')
+
+runs = client.search_runs(1)
+params = runs[0].data.params
+```
+
+For more information on tracking, see MLflow docs [here](https://www.mlflow.org/docs/latest/python_api/mlflow.tracking.html).
 
 # Command line 
 
@@ -38,6 +52,6 @@ conda install -c conda-forge mlflow
 To view the MLflow UI:
 
 ```
-mlflow ui --backend-store-uri 'path_to_db'
+mlflow ui --backend-store-uri 'db_type:///path_to_db'
 ```
 
