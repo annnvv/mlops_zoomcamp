@@ -7,7 +7,7 @@ import mlflow
 ```
 
 ```
-mlflow.set_tracking_uri('sqlite:///path_to_db') 
+mlflow.set_tracking_uri('db_type:///path_to_db') 
 mlflow.set_experiment('name_of_experiment')
 ```
 
@@ -31,7 +31,7 @@ For more information on logging functions, see MLflow docs [here](https://www.ml
 ## Reading information/results of experiments
 
 ```
-client = mlflow.tracking.MlflowClient(tracking_uri = 'db_type:///db_path')
+client = mlflow.tracking.MlflowClient(tracking_uri = 'db_type:///path_to_db')
 experiment = client.get_experiment_by_name('experiment_name')
 
 runs = client.search_runs(1)
