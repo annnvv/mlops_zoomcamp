@@ -22,7 +22,7 @@ with mlflow.start_run() as run:
 	mlflow.log_metric('metric_name', metric_obj)
 	mlflow.log_artifact(artifact_obj or local_artifact_path, artifact_path)
 	
-mlflow.stop_run() ## not necessary if using `with mlflow.start_run() as run:`
+mlflow.stop_run() ##av.note: not necessary if using `with mlflow.start_run() as run:`
 ```
 For more information on logging functions, see Mlflow docs [here](https://www.mlflow.org/docs/latest/tracking.html#logging-functions).
 
