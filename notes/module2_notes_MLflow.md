@@ -25,7 +25,6 @@ with mlflow.start_run() as run:
 mlflow.stop_run() ## not necessary if using `with mlflow.start_run() as run:`
 ```
 For more information on logging functions, see Mlflow docs [here](https://www.mlflow.org/docs/latest/tracking.html#logging-functions).
-For more 
 
 # Command line 
 
