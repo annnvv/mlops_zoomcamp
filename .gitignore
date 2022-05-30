@@ -1,8 +1,8 @@
 #ignore mlflow stuff
 
-/artifacts/.
-/mlruns/.
-mlflow.db
+**/artifacts/
+**/mlruns/
+**/mlflow.db
 
 #
 /course/
