@@ -1,3 +1,9 @@
+#ignore mlflow stuff
+
+/artifacts/.
+/mlruns/.
+mlflow.db
+
 #
 /course/
 
