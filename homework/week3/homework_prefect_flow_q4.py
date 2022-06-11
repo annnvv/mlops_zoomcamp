@@ -121,6 +121,6 @@ def main(date = None):
 DeploymentSpec(
     flow=main,
     name="scheduled-deployment-q4",
-    flow_runner=SubprocessFlowRunner(), ##av.note: what is this again?
+    flow_runner=SubprocessFlowRunner(), ##av.note: to run the flow locally
     schedule=CronSchedule(cron="0 9 15 * *")
 )
