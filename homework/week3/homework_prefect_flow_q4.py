@@ -11,6 +11,8 @@ from sklearn.metrics import mean_squared_error
 from prefect import task, flow, get_run_logger
 from prefect.task_runners import SequentialTaskRunner
 from prefect.flow_runners import SubprocessFlowRunner
+from prefect.deployments import DeploymentSpec
+from prefect.orion.schemas.schedules import CronSchedule
 
 @task
 def get_paths(date):
@@ -116,20 +118,9 @@ def main(date = None):
 
 # main(date = "2021-08-15")
 
-from prefect.deployments import DeploymentSpec
-from prefect.orion.schemas.schedules import CronSchedule
-
 DeploymentSpec(
-    flow_location=main_flow,
+    flow=main,
     name="scheduled-deployment-q4",
     flow_runner=SubprocessFlowRunner(), ##av.note: what is this again?
-    schedule=CronSchedule(cron="0 9 15 * *")
-)
-
-
-DeploymentSpec(
-    flow_location=main,
-    name="scheduled-deployment-q4",
-    flow_runner=SubprocessFlowRunner(), 
     schedule=CronSchedule(cron="0 9 15 * *")
 )
