@@ -18,7 +18,7 @@ def prepare_features(df, categorical, train=True):
         print(f"The mean duration of training is {mean_duration}")
     else:
         print(f"The mean duration of validation is {mean_duration}")
-    
+
     df[categorical] = df[categorical].fillna(-1).astype('int').astype('str')
     return df
 
@@ -26,7 +26,7 @@ def train_model(df, categorical):
 
     train_dicts = df[categorical].to_dict(orient='records')
     dv = DictVectorizer()
-    X_train = dv.fit_transform(train_dicts) 
+    X_train = dv.fit_transform(train_dicts)
     y_train = df.duration.values
 
     print(f"The shape of X_train is {X_train.shape}")
@@ -41,7 +41,7 @@ def train_model(df, categorical):
 
 def run_model(df, categorical, dv, lr):
     val_dicts = df[categorical].to_dict(orient='records')
-    X_val = dv.transform(val_dicts) 
+    X_val = dv.transform(val_dicts)
     y_pred = lr.predict(X_val)
     y_val = df.duration.values
 
@@ -49,7 +49,7 @@ def run_model(df, categorical, dv, lr):
     print(f"The MSE of validation is: {mse}")
     return
 
-def main(train_path: str = './data/fhv_tripdata_2021-01.parquet', 
+def main(train_path: str = './data/fhv_tripdata_2021-01.parquet',
            val_path: str = './data/fhv_tripdata_2021-02.parquet'):
 
     categorical = ['PUlocationID', 'DOlocationID']

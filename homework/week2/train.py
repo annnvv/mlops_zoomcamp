@@ -13,7 +13,7 @@ def load_pickle(filename: str):
 
 def run(data_path):
     mlflow.set_tracking_uri('sqlite:///mlflow.db')
-    mlflow.set_experiment('nyc-taxi-experiment-hw2') 
+    mlflow.set_experiment('nyc-taxi-experiment-hw2')
 
     # enable autologging
     mlflow.sklearn.autolog()

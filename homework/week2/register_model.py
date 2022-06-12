@@ -67,14 +67,14 @@ def run(data_path, log_top):
     experiment = client.get_experiment_by_name(EXPERIMENT_NAME)
     best_run = client.search_runs(experiment_ids = 3,
                                   run_view_type= mlflow.entities.ViewType.ACTIVE_ONLY,
-                                  max_results=1,  
+                                  max_results=1,
                                   order_by=["metrics.test_rmse ASC"]
                                  )[0]
-    
+
     best_run_id = best_run.info.run_id
 
     # register the best model
-    mlflow.register_model(model_uri = f"runs:/{best_run_id}/model", 
+    mlflow.register_model(model_uri = f"runs:/{best_run_id}/model",
                           name  = "Best_RandomForestRegressor_BasedOn_202103_testdata")
 
 

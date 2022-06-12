@@ -15,7 +15,7 @@ def read_data(path):
 @task
 def prepare_features(df, categorical, train=True):
     logger = get_run_logger("logger")
-    
+
     df['duration'] = df.dropOff_datetime - df.pickup_datetime
     df['duration'] = df.duration.dt.total_seconds() / 60
     df = df[(df.duration >= 1) & (df.duration <= 60)].copy()
@@ -25,7 +25,7 @@ def prepare_features(df, categorical, train=True):
         logger.info(f"The mean duration of training is {mean_duration}")
     else:
         logger.info(f"The mean duration of validation is {mean_duration}")
-    
+
     df[categorical] = df[categorical].fillna(-1).astype('int').astype('str')
     return df
 
@@ -35,7 +35,7 @@ def train_model(df, categorical):
 
     train_dicts = df[categorical].to_dict(orient='records')
     dv = DictVectorizer()
-    X_train = dv.fit_transform(train_dicts) 
+    X_train = dv.fit_transform(train_dicts)
     y_train = df.duration.values
 
     logger.info(f"The shape of X_train is {X_train.shape}")
@@ -51,9 +51,9 @@ def train_model(df, categorical):
 @task
 def run_model(df, categorical, dv, lr):
     logger = get_run_logger("logger")
-    
+
     val_dicts = df[categorical].to_dict(orient='records')
-    X_val = dv.transform(val_dicts) 
+    X_val = dv.transform(val_dicts)
     y_pred = lr.predict(X_val)
     y_val = df.duration.values
 
@@ -62,7 +62,7 @@ def run_model(df, categorical, dv, lr):
     return
 
 @flow(task_runner=SequentialTaskRunner())
-def main(train_path: str = 'https://s3.amazonaws.com/nyc-tlc/trip+data/fhv_tripdata_2021-01.parquet', 
+def main(train_path: str = 'https://s3.amazonaws.com/nyc-tlc/trip+data/fhv_tripdata_2021-01.parquet',
            val_path: str = 'https://s3.amazonaws.com/nyc-tlc/trip+data/fhv_tripdata_2021-02.parquet'):
 
     categorical = ['PUlocationID', 'DOlocationID']

@@ -25,13 +25,13 @@ def get_paths(date):
         new_date = datetime.strptime(date, "%Y-%m-%d")
         train_date = (new_date-relativedelta(months=2)).strftime(date_format)
         val_date = (new_date-relativedelta(months=1)).strftime(date_format)
-    
+
     # logger.info(f"Train date is {train_date}")
     # logger.info(f"Val date is {val_date}")
-    
+
     train_path = f"{path}_{train_date}.parquet"
     val_path = f"{path}_{val_date}.parquet"
-    
+
     logger.info(f"Train path is {train_path}")
     logger.info(f"Val path is {val_path}")
     return train_path, val_path
@@ -44,7 +44,7 @@ def read_data(path):
 @task
 def prepare_features(df, categorical, train=True):
     logger = get_run_logger("logger")
-    
+
     df["duration"] = df.dropOff_datetime - df.pickup_datetime
     df["duration"] = df.duration.dt.total_seconds() / 60
     df = df[(df.duration >= 1) & (df.duration <= 60)].copy()
@@ -54,7 +54,7 @@ def prepare_features(df, categorical, train=True):
         logger.info(f"The mean duration of training is {mean_duration}")
     else:
         logger.info(f"The mean duration of validation is {mean_duration}")
-    
+
     df[categorical] = df[categorical].fillna(-1).astype("int").astype("str")
     return df
 
@@ -64,7 +64,7 @@ def train_model(df, categorical):
 
     train_dicts = df[categorical].to_dict(orient="records")
     dv = DictVectorizer()
-    X_train = dv.fit_transform(train_dicts) 
+    X_train = dv.fit_transform(train_dicts)
     y_train = df.duration.values
 
     logger.info(f"The shape of X_train is {X_train.shape}")
@@ -80,16 +80,16 @@ def train_model(df, categorical):
 @task
 def run_model(df, categorical, dv, lr):
     logger = get_run_logger("logger")
-    
+
     val_dicts = df[categorical].to_dict(orient="records")
-    X_val = dv.transform(val_dicts) 
+    X_val = dv.transform(val_dicts)
     y_pred = lr.predict(X_val)
     y_val = df.duration.values
 
     mse = mean_squared_error(y_val, y_pred, squared=False)
     logger.info(f"The MSE of validation is: {mse}")
     return
-    
+
 @flow(task_runner=SequentialTaskRunner())
 def main(date = None):
     train_path, val_path = get_paths(date).result()
@@ -104,13 +104,13 @@ def main(date = None):
 
     # train the model
     lr, dv = train_model(df_train_processed, categorical).result()
-    
+
     with open(f'artifacts/model-{date}.bin', 'wb') as f_out:
         pickle.dump(lr, f_out)
 
     with open(f'artifacts/dv-{date}.b', 'wb') as f_out:
         pickle.dump(dv, f_out)
-    
+
     run_model(df_val_processed, categorical, dv, lr)
 
 main(date = "2021-08-15")
