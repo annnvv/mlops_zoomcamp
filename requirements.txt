@@ -13,3 +13,4 @@ mlflow==1.26.0
 prefect==2.0b6
 flask==2.1.1
 gunicorn==20.1.0
+waitress==2.1.1
