@@ -44,7 +44,7 @@ def main():
     sum = sometask(1, 2).results() ##av.note: need the results methods because futures...
     somefunction()
 
-main()
+#main()
 ```
 
 Deployment and schedule
