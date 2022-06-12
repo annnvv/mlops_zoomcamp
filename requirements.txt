@@ -10,4 +10,6 @@ seaborn==0.11.2
 hyperopt==0.2.7
 xgboost==1.6.1
 mlflow==1.26.0
-prefect==2.0b5
+prefect==2.0b6
+flask==2.1.1
+gunicorn==20.1.0
