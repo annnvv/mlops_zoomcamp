@@ -5,17 +5,22 @@ For more information on Prefect Orion (version 2.0), see [here](https://orion-do
 
 1. Create a script with @task and @flow decorators around functions or classes. 
 
-2. Create a deployment specification (will need to specify flow function or script, schedule, and flow runner) 
+2. Create a deployment specification (will need to specify flow function or script, schedule, and flow runner)
+
     [Docs for deployment](https://orion-docs.prefect.io/concepts/deployments/) 
+
     [Docs for schedule](https://orion-docs.prefect.io/concepts/schedules/)
+    
     [Docs for flow runner](https://orion-docs.prefect.io/concepts/flow-runners/)
 
 3. Specify the orchestration engine (Prefect Cloud or a local Prefect API server started with `prefect orion start`)
 
 4. Specify storage for flow deployments and results 
+    
     [Docs for storage](https://orion-docs.prefect.io/concepts/storage/)
 
 5. Specify a workqueue and an agent 
+    
     [Docs for work-queue](https://orion-docs.prefect.io/concepts/work-queues/)
 
 
