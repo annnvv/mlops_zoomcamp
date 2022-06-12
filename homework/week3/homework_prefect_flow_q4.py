@@ -21,13 +21,12 @@ def get_paths(date):
     date_format = "%Y-%m"
 
     if date is None:
-        today = datetime.today()
-        train_date = (today-relativedelta(months=2)).strftime(date_format)
-        val_date = (today-relativedelta(months=1)).strftime(date_format)
+        date = datetime.today()
     else:
-        new_date = datetime.strptime(date, "%Y-%m-%d")
-        train_date = (new_date-relativedelta(months=2)).strftime(date_format)
-        val_date = (new_date-relativedelta(months=1)).strftime(date_format)
+        date = datetime.strptime(date, "%Y-%m-%d")
+        
+    train_date = (date-relativedelta(months=2)).strftime(date_format)
+    val_date = (date-relativedelta(months=1)).strftime(date_format)
 
     # logger.info(f"Train date is {train_date}")
     # logger.info(f"Val date is {val_date}")
