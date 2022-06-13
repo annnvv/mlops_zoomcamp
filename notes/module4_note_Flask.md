@@ -6,7 +6,7 @@ import flask from Flask
 
 app = Flask('app_name')
 
-@app.route('/predict', methods = ['POST"])
+@app.route('/predict', methods = ["POST"])
 def make_prediction():
     ##some code/function to make a prediction
     return 'prediciton'
