@@ -1,7 +1,12 @@
 # Deployment
 
+Webservice Deployment steps (used in this module):
+1. Create virtual environment using pipenv
+2. Create flask app
+3. Create docker container using info specified in pipenv
 
 ## pipenv - virtual environment
+Docs for pipenv, see [here](https://pipenv-fork.readthedocs.io/en/latest/basics.html)
 
 ### Command Line
 ```
@@ -33,3 +38,8 @@ This means that we have to have:
     2b) a process to transform new raw data using the same steps that were performed on the training data. 
 
 To use flask, it is preferrable to transform the data into JSON format. Also, the prediction (using requests) similarly returns a json format. 
+
+See notes on Flask, [here](https://github.com/annnvv/mlops_zoomcamp/blob/main/notes/module4_notes_Flask.md).
+
+
+##
