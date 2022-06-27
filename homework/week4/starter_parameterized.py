@@ -18,8 +18,8 @@ def read_data(filename):
 
     return dicts
 
-def print_mean_pred(model_path, year, month):
-    with open(model_path, 'rb') as f_in:
+def print_mean_pred(year, month):
+    with open('model.bin', 'rb') as f_in:
         dv, lr = pickle.load(f_in)
 
     dicts = read_data(f'https://nyc-tlc.s3.amazonaws.com/trip+data/fhv_tripdata_{year:04d}-{month:02d}.parquet')
@@ -36,12 +36,6 @@ if __name__ == "__main__":
     my_parser = argparse.ArgumentParser()
 
     # Add the arguments
-    # my_parser.add_argument('--model_path',
-    #                     metavar='model_path',
-    #                     type=str,
-    #                     required=True,
-    #                     help='path to model')
-
     my_parser.add_argument('--year',
                         metavar='year',
                         type=int,
