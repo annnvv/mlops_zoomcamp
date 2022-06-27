@@ -10,4 +10,4 @@ RUN pipenv install --system --deploy
 
 COPY ["starter_parameterized.py", "./starter_parameterized_docker.py"]
 
-ENTRYPOINT ["python", "starter_parameterized_docker.py", "--model_path=model.bin", "--year=2021", "--month=4"]
+ENTRYPOINT ["python", "starter_parameterized_docker.py", "--year=2021", "--month=4"]

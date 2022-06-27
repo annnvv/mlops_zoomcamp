@@ -36,11 +36,11 @@ if __name__ == "__main__":
     my_parser = argparse.ArgumentParser()
 
     # Add the arguments
-    my_parser.add_argument('--model_path',
-                        metavar='model_path',
-                        type=str,
-                        required=True,
-                        help='path to model')
+    # my_parser.add_argument('--model_path',
+    #                     metavar='model_path',
+    #                     type=str,
+    #                     required=True,
+    #                     help='path to model')
 
     my_parser.add_argument('--year',
                         metavar='year',
@@ -57,5 +57,5 @@ if __name__ == "__main__":
     # Execute the parse_args() method
     args = my_parser.parse_args()
 
-    print_mean_pred(model_path=args.model_path, year=args.year, month=args.month)
+    print_mean_pred(year=args.year, month=args.month)
     

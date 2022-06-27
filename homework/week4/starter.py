@@ -1,34 +1,35 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
+# In[1]:
 
 
 # !pip freeze | grep scikit-learn
 
 
-# In[1]:
+# In[2]:
 
 
+## I installed a different version of sklearn ... :/
 import sklearn
 sklearn.__version__
 
 
-# In[2]:
+# In[3]:
 
 
 import pickle
 import pandas as pd
 
 
-# In[3]:
+# In[4]:
 
 
 with open('model.bin', 'rb') as f_in:
     dv, lr = pickle.load(f_in)
 
 
-# In[4]:
+# In[5]:
 
 
 categorical = ['PUlocationID', 'DOlocationID']
@@ -46,20 +47,20 @@ def read_data(filename):
     return df
 
 
-# In[5]:
+# In[6]:
 
 
 year = 2021
 month = 2
 
 
-# In[6]:
+# In[7]:
 
 
 df = read_data(f'https://nyc-tlc.s3.amazonaws.com/trip+data/fhv_tripdata_{year:04d}-{month:02d}.parquet')
 
 
-# In[7]:
+# In[8]:
 
 
 dicts = df[categorical].to_dict(orient='records')
@@ -67,7 +68,7 @@ X_val = dv.transform(dicts)
 y_pred = lr.predict(X_val)
 
 
-# In[8]:
+# In[9]:
 
 
 y_pred.mean()
@@ -79,7 +80,7 @@ y_pred.mean()
 
 
 
-# In[9]:
+# In[10]:
 
 
 df_result = pd.DataFrame()
