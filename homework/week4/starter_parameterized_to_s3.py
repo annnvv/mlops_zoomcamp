@@ -4,7 +4,7 @@ import pickle
 import pandas as pd
 
 
-def read_data(filename):
+def read_data(filename:str):
     df = pd.read_parquet(filename)
     
     df['duration'] = df.dropOff_datetime - df.pickup_datetime

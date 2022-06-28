@@ -4,7 +4,7 @@ import pickle
 import pandas as pd
 
 
-def read_data(filename):
+def read_data(filename:str):
     df = pd.read_parquet(filename)
     
     df['duration'] = df.dropOff_datetime - df.pickup_datetime
@@ -18,7 +18,7 @@ def read_data(filename):
 
     return dicts
 
-def print_mean_pred(year, month):
+def print_mean_pred(year:int, month:int):
     with open('model.bin', 'rb') as f_in:
         dv, lr = pickle.load(f_in)
 
