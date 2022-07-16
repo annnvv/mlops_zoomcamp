@@ -18,4 +18,4 @@ waitress==2.1.1
 requests==2.27.1 #for dev only
 pyarrow==4.0.1
 s3fs==2022.5.0
-pytest==1.11.0 #for dev only
+pytest==7.1.2 #for dev only
