@@ -1,5 +1,6 @@
 # Best Pratices
 
+# Module 6.1
 ## Unit Testing - pytest
 
 - Need to have separate `tests` folder
@@ -12,7 +13,7 @@ See [pytest invokation documentation](https://docs.pytest.org/en/7.1.x/how-to/us
 pipenv run pytest tests 
 ```
 
-
+# Module 6.2
 ## Integration Testing
 
 
@@ -39,8 +40,9 @@ Pylint is meant to be called from the command line. `pylint --recursive=y .`
 ## Formatting - black
 
 CLI commands: 
-to see the issues: `black --diff --skip-string-normalization . | less`
-to apply changes: `black --skip-string-normalization .`
+- to see the issues: `black --diff --skip-string-normalization . | less`
+- to apply changes: `black --skip-string-normalization .`
+
 Add trailing commas to prevent black from making things single line
 
 Can add black configuration with `pyproject.toml`
@@ -49,8 +51,8 @@ Can add black configuration with `pyproject.toml`
 isort re-arranges import statements based on Python convention 
 
 CLI commands:
-to see the issues: `isort --diff. `
-to apply changes: `isort .`
+- to see the issues: `isort --diff. `
+- to apply changes: `isort .`
 
 Can add isort configuration with `pyproject.toml`
 
@@ -66,3 +68,45 @@ Or you can run pre-commit on all files (optional) using the CLI command `pre-com
 
 # Module 6.6
 ## Make and Makefiles
+Make is a tool which controls the generation of executables and other non-source files of a program from the program's source files.
+
+- File name should be just `Makefile`
+```
+#simple makefile
+test:
+    pytest tests/
+
+quality_checks:
+    isort .
+    black .
+    pylint --recursive=y .
+
+build: quality_checks test
+    echo run
+```
+
+```
+LOCAL_TAG:=$(shell date +"%Y-%m-%d-%H-%M")
+LOCAL_IMAGE_NAME:=stream-model-duration:${LOCAL_TAG}
+
+test:
+	pytest tests/
+
+quality_checks:
+	isort .
+	black .
+	pylint --recursive=y .
+
+build: quality_checks test
+	docker build -t ${LOCAL_IMAGE_NAME} .
+
+integration_test: build
+	LOCAL_IMAGE_NAME=${LOCAL_IMAGE_NAME} bash integraton-test/run.sh
+
+publish: build integration_test
+	LOCAL_IMAGE_NAME=${LOCAL_IMAGE_NAME} bash scripts/publish.sh
+
+setup:
+	pipenv install --dev
+	pre-commit install
+```
