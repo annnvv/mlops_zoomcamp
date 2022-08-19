@@ -1,3 +1,5 @@
+.vscode/
+
 #ignore mlflow stuff
 
 **/artifacts/
